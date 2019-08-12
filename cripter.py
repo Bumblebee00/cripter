@@ -90,75 +90,75 @@ while True:
     for wdir, sottoc, file in os.walk(os.getcwd() + '\\encrypted passwords'):#this path is a folder that contains encrypted password files
         passwords_list += file
 
-    print('Vuoi recuperare una password (r) crearne una nuova(c) o eliminarne una(d)?')
+    print('Do you want to read a password (r) create a new one (c) or delete one (d)?')
     option = input('->')
 
     if option == 'c':
         #to avoid confusion
         while run:
-            print('Inserisci il nome della password che vuoi salvare')
+            print('Enter the name of the password you want to save')
             name_password = input('->')
             if name_password in passwords_list:
-                print('Hai già una password chiamata così, cambia nome')
+                print('You already have a password so called, change your name')
                 run = True
             else:
                 run = False
-        print('Inserisci la chiave con cui vuoi criptere la password')
+        print('Enter the key with which you want to encrypt the password')
         key_password = input('->')
-        print('Inserisci la password')
+        print('Enter the password')
         password = input('->')
         #processo
         path = os.getcwd() + '\\encrypted passwords\\' + name_password
         x = open(file=path, mode='w')
         x.write(adder(password, key_password))
         x.close()
-        print('Creata con successo')
+        print('Successfully created')
 
     elif (option == 'r') and (passwords_list != []):
 
         print(passwords_list)
-        print('Ecco le tue password')
+        print('Here are your passwords')
         #to avoid confusion
         while run:
-            print('Che password vuoi recuperare?')
+            print('What password do you want to read?')
             password_todecrypt = input('->')
             if password_todecrypt not in passwords_list:
-                print('Spiacente, non hai nessuna password chiamata ' + password_todecrypt)
+                print("Sorry, you don't have any passwords named " + password_todecrypt)
                 run = True
             else:
                 run = False
-        print('Inserisci la chiave per recuperare la password')
+        print('Enter the key to read the password')
         key_password = input('->')
         #process
         path = os.getcwd() + '\\encrypted passwords\\' + password_todecrypt
         x = open(file=path, mode='r').read()
-        print('La tua password è:')
+        print('Your password is:')
         print(subtracter(x, key_password))
     elif (option == 'r') and (passwords_list == []):
-        print('Non hai ancora nessuna password criptata')
+        print("You don't have any encrypted passwords yet")
     elif (option == 'd') and (passwords_list != []):
 
         print(passwords_list)
-        print('Ecco le tue password')
+        print('Here are your passwords')
         #to avoid confusion
         while run:
-            print('Che password vuoi eliminare?')
+            print('What password do you want to delete?')
             password_todelete = input('->')
             if password_todelete not in passwords_list:
-                print('Spiacente, non hai nessuna password chiamata ' + password_todelete)
+                print("Sorry, you don't have any passwords named" + password_todelete)
                 run = True
             else:
                 run = False
-        print('Sei sicuro di voler eliminare la password di ' + password_todelete)
+        print('Are you sure you want to delete the password of' + password_todelete)
         confirm_deleting = input('(si o no)->')
         #process
         if confirm_deleting == 'si':
             path = os.getcwd() + '\\encrypted passwords\\' + password_todelete
             os.unlink(path)
-            print('Eliminata con successo')
+            print('Successfuly deleted')
         else:
             print('Ok')
     elif (option == 'd') and (passwords_list == []):
-        print('Non hai ancora nessuna password criptata')
+        print("You don't have any encrypted passwords yet")
     else:
-        print("Digita 'r', 'c' o 'd'")
+        print("Type 'r', 'c' o 'd'")
